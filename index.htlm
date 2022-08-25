@@ -1,134 +1,381 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<style>
-.scrollmenu {
-        background-color: #333;
-        overflow: auto;
-        white-space: nowrap;
-      }
+    <meta charset="utf-8" />
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src="https://kit.fontawesome.com/6380ada59c.js" crossorigin="anonymous"></script>
+    <title></title>
+    <style>
+        /* use grid */
+        .header { grid-area: header; }
+        .menu { grid-area: menu; }
+        .main { grid-area: main; }
+        .right { grid-area: right; }
+        .footer { grid-area: footer; }
 
-      div.scrollmenu a {
-        display: inline-block;
-        color: white;
-        text-align: center;
-        padding: 14px;
-        text-decoration: none;
-      }
+        .main {
+            margin-bottom: 15px;
+        }
+        
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
 
-      div.scrollmenu a:hover {
-        background-color: #777;
-      }
+        .grid-container {
+            display: grid;
+            grid-template-areas: 'header header header header header header'
+                                 'main main main main main main'
+                                 'footer footer footer footer footer footer';
+            gap: 0px;
+            background-color: none;
+            padding: 0px;
+        }
 
-#tool {
-  border-bottom: 1px solid black;
-  padding: 5px;
-  background-color: #999;
-  background-repeat: no-repeat;
-}
+            .grid-container > div {
+                background-color: none;
+                text-align: center;
+                padding: 14px 0px;
+                font-size: 31px;
+                padding-left: 5px;
+            }
 
-#movie {
-  border-bottom: 1px solid black;
-  padding: 5px;
-  background-color: #999;
-  background-repeat: no-repeat;
-  background-origin: border-box;
-}
+        .scrollmenu {
+            background-color: #999;
+            overflow: auto;
+            white-space: nowrap;
+            width: 100%;
+            margin: 0;   
+        }
 
-#book {
-  border-bottom: 1px solid black;
-  padding: 5px;
-  background-color: #999;
-  background-repeat: no-repeat;
-  background-origin: content-box;
-}
+            div.scrollmenu a {             
+                display: inline-block;
+                color: #333;
+                text-align: center;
+                padding: 14px;
+                text-decoration: none;
+            }
 
-/* Add a black background color to the top navigation */
-.topnav {
-  background-color: #333;
-  overflow: hidden;
-}
+            div.scrollmenu a:hover {
+                background-color: #777;
+            }
 
-/* Style the links inside the navigation bar */
-.topnav a {
-  float: left;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
+        .grid-container {
+            display: grid;
+            justify-content: center;
+            grid-template-columns: 100%;
+            gap: 0px;
+            background-color: none;
+            padding: 0px;
+        }
 
-/* Change the color of links on hover */
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
+            .grid-container > div {
+                background-color: none;
+                text-align: center;
+                padding: 14px 0;
+                font-size: 14px;
+            }
 
-/* Add a color to the active/current link */
-.topnav a.active {
-  background-color: #04AA6D;
-  color: white;
-}
+                .item1 {
+                    grid-row: 1 / 4;
+                }   
+         
+            
+        /* Add a background color to the top navigation */
+        .topnav {
+            background-color: #333;
+            overflow: hidden;
+            width: 100%;
+            position: fixed; 
+            top: 0;
+            left: 1px;
+            right: 1px;
+        }
 
-</style>
+            /* Style the links inside the navigation bar */
+            .topnav a {
+                float: left;
+                color: #f2f2f2;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+                font-size: 14px;
+                
+            }
+
+            /* Change the color of links on hover */
+            .topnav a:hover {
+                background-color: #ddd;
+                color: black;
+            }
+
+            /* Add a color to the active/current link */
+            .topnav a.active {
+                background-color: #04AA6D;
+                color: white;
+            }
+
+        /* Add a black background color to the bottom navigation */
+        .botnav {
+            background-color: #333;
+            width: 100%;
+            overflow: hidden;
+            position: fixed; 
+            bottom: 0;
+            left: 1px;
+            right: 1px;
+        }
+
+            /* Style the links inside the navigation bar */
+            .botnav a {
+                float: left;
+                color: #f2f2f2;
+                text-align: center;
+                padding: 14px 0px;
+                text-decoration: none;
+                font-size: 17px;
+                width: 20%;
+                
+            }
+
+            /* Change the color of links on hover */
+            .botnav a:hover {
+                background-color: #ddd;
+                color: black;
+            }
+
+            /* Add a color to the active/current link */
+            .botnav a.active {
+                background-color: #04AA6D;
+                color: white;
+            }
+
+            body {
+                background-color: pink;
+            }
+
+            @media screen and (min-width: 480px) {
+                body {
+                    background-color: white;
+                }
+            }
+        
+        /* Pagination links */
+        .pagination a {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+            transition: background-color .3s;
+        }
+
+        /* Style the active/current link */
+        .pagination a.active {
+            background-color: dodgerblue;
+            color: white;
+        }
+
+        /* Add a grey background color on mouse-over */
+        .pagination a:hover:not(.active) {background-color: #ddd;}
+    </style>
 </head>
-<body>
-<div class="topnav">
-  <a class="active" href="#home">Home</a>
-  <a href="#news">News</a>
-  <a href="#contact">Contact</a>
-  <a href="#about">About</a>
-</div>
+<body id="sachtony">
+    <div class="grid-container" id="746F6E79-6475-6F6E-6767-6C6F62616C73">
+        <div class="header">
+            <div class="topnav">
+                <a class="active" href="#music">Musics</a>
+                <a href="#Library">Library</a>
+                <a href="#top">Tops</a>
+                <a href="#catalogue">Catalogues</a>
+                <a href="#kid">Kids</a>
+            </div>
+        </div>
+        <div class="main">
+            <div id="tool">
+                <div class="scrollmenu">
+                    <a href="#">Personal</a>
+                    <a href="#">Business</a>
+                    <a href="#">Enterprice</a>
+                </div>
+                <div>
+                    <h2>Tools & utilities</h2>
+                    <p>
+                        <ul>
+                            <li><a href="#">Calculator</a></li>
+                            <li><a href="#">Antivirus</a></li>
+                            <li><a href="#">VPN</a></li>
+                            <li><a href="#">QR and barcode</a></li>
+                            <li><a href="#">File manager</a></li>
+                        </ul>
+                    </p>
+                    <div class="pagination">
+                        <a href="#">&laquo;</a>
+                        <a href="#">1</a>
+                        <a class="active" href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#">4</a>
+                        <a href="#">5</a>
+                        <a href="#">6</a>
+                        <a href="#">&raquo;</a>
+                    </div>  
+                </div>
+            </div>
+            <div id="Communication">
+                <div class="scrollmenu">
+                    <a href="#">Personal</a>
+                    <a href="#">Business</a>
+                    <a href="#">Enterprice</a>
+                    
+                </div>
+                <div>
+                    <h2>Communication</h2>
+                    <p>
+                        <ul>
+                            <li><a href="#">Messenger</a></li>
+                            <li><a href="#">Telegram</a></li>
+                            <li><a href="#">WhatsApp</a></li>
+                            <li><a href="#">Zalo</a></li>
+                            <li><a href="#">Messenger Lite</a></li>
+                            
+                        </ul>
 
-<div id="tool">
-    <h2>Tools</h2>
-    <p>Collection tools</p>
-    <div class="scrollmenu">
-    <a href="#">1</a>
-    <a href="#">2</a>
-    <a href="#">3</a>
-    <a href="#">4</a>
-    <a href="#">5</a>
-  </div>
-</div>
+                    </p>
+                    <div class="pagination">
+                        <a href="#">&laquo;</a>
+                        <a href="#">1</a>
+                        <a class="active" href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#">4</a>
+                        <a href="#">5</a>
+                        <a href="#">6</a>
+                        <a href="#">&raquo;</a>
+                    </div>  
+                </div>
+            </div>           
+            <div id="movie">
+                <div class="scrollmenu">
+                    <a href="#">Action</a>  
+                    <a href="#">Adventure</a>
+                    <a href="#">Thrilling</a>
+                    <a href="#">Fantasy</a>
+                    <a href="#">Scary</a>
+                </div>
+                <div>
+                    <h2>Movie</h2>
+                    <p>
+                        <ul>
+                            <li><a href="#">Rumble</a></li>
+                            <li><a href="#">Harry potter</a></li>
+                            <li><a href="#">Zootopia</a></li>
+                            <li><a href="#">Spider-man</a></li>
+                            <li><a href="#">Holmes and watson</a></li>
+                            <li><a href="#">The Boss Baby: Family business</a></li>
+                            <li><a href="#">Yesterday</a></li>
+                            <li><a href="#">Alpha</a></li>
+                            <li><a href="#">John carter</a></li>
+                            <li><a href="#">Star Wars: Attach of the clones</a></li>
+                            <li><a href="#">Men in black 3</a></li>
+                            <li><a href="#">Beethoven</a></li>
+                            <li><a href="#">Free willy</a></li>
+                            <li><a href="#">The prince of egypt</a></li>
+                            <li><a href="#">Kung fu panda</a></li>
+                            <li><a href="#">Shrek</a></li>
+                            <li><a href="#">Bee Movie</a></li>
+                        </ul>
 
-<div id="movie">
-	<h2>Movies</h2>
-    <p>Collection movie</p>
-	<div class="scrollmenu">
-    <a href="#">1</a>  
-    <a href="#">2</a>
-    <a href="#">3</a>
-    <a href="#">4</a>
-    <a href="#">5</a>
-    <a href="#">6</a>
-    <a href="#">7</a>
-    <a href="#">8</a>
-    <a href="#">9</a>
-    <a href="#">10</a>
-    <a href="#">11</a>
-    <a href="#">12</a>
-    <a href="#">13</a>
-    <a href="#">14</a>
-    <a href="#">15</a>
-    <a href="#">16</a>
-    <a href="#">17</a>
-  </div>
-</div>
+                    </p>
+                    <div class="pagination">
+                        <a href="#">&laquo;</a>
+                        <a href="#">1</a>
+                        <a class="active" href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#">4</a>
+                        <a href="#">5</a>
+                        <a href="#">6</a>
+                        <a href="#">&raquo;</a>
+                    </div>  
+                </div>
+            </div>
+                
+            <div id="book">
+                <div class="scrollmenu">
+                    <a href="#">Tech</a>
+                    <a href="#">Child</a>
+                    <a href="#">Business</a>
+                    <a href="#">Romantics</a>
+                    <a href="#">Fantasy</a>
+                </div>
+                <div>
+                    <h2>Books</h2>
+                    <p>
+                        <ul>
+                            <li><a href="#">Steve jobs</a></li>
+                            <li><a href="#">Thing and grow rich</a></li>
+                            <li><a href="#">CFO handbook</a></li>
+                            <li><a href="#">Book lovers</a></li>
+                            <li><a href="#">The name of the rose</a></li>
+                        </ul>
 
-<div id="book">
-	<h2>Books</h2>
-    <p>Collection books</p>
-	<div class="scrollmenu">
-    <a href="#">1</a>
-    <a href="#">2</a>
-    <a href="#">3</a>
-    <a href="#">4</a>
-    <a href="#">5</a>
+                    </p>
+                    <div class="pagination">
+                        <a href="#">&laquo;</a>
+                        <a href="#">1</a>
+                        <a class="active" href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#">4</a>
+                        <a href="#">5</a>
+                        <a href="#">6</a>
+                        <a href="#">&raquo;</a>
+                    </div>  
+                </div>
+            </div>
+            <div id="audiobook">
+                <div class="scrollmenu">
+                    <a href="#">Tech</a>
+                    <a href="#">Child</a>
+                    <a href="#">Business</a>
+                    <a href="#">Romantics</a>
+                    <a href="#">Fantasy</a>
+                </div>
+                <div>
+                    <h2>Audiobooks</h2>
+                    <p>
+                        <ul>
+                            <li><a href="#">Da vinci in love</a></li>
+                            <li><a href="#">Kings and sorcerers: A short story</a></li>
+                            <li><a href="#">The war of the worlds</a></li>
+                            <li><a href="#">Immortal ops: Volume 1</a></li>
+                            <li><a href="#">Ready player one</a></li>
+                        </ul>
+                    </p>
+                    <div class="pagination">
+                            <a href="#">&laquo;</a>
+                            <a href="#">1</a>
+                            <a class="active" href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">4</a>
+                            <a href="#">5</a>
+                            <a href="#">6</a>
+                            <a href="#">&raquo;</a>
+                        </div>  
+
+                    </div>
+                </div>
+                    
+            </div>
+        </div> 
+        <div class="footer">
+            <div class="botnav">
+                <a href="#game">Games</a>
+                <a href="#book">Books</a>
+                <a href="#app">Apps</a>
+                <a href="#all">Play</a>
+                <a href="#movie">Movies</a>
+            </div>
+        </div>
     </div>
-</div>
-
 
 </body>
 </html>

@@ -1,0 +1,986 @@
+﻿<!DOCTYPE html>
+<html id="sachtony" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://kit.fontawesome.com/6380ada59c.js" crossorigin="anonymous"></script>
+    <title></title>
+    <style>
+        /* use grid */
+        header { grid-area: header; }
+        .menu { grid-area: menu; }
+        .main { grid-area: main; }
+        .right { grid-area: right; }
+        footer { grid-area: footer; }
+        
+        /* Area header style */
+        header {
+            overflow: hidden;
+            background-color: #5566;
+        }
+
+        /* Style the header with a grey background and some padding */
+        .topnav {
+            overflow: hidden;
+            background-color: #f1f1f1;
+            padding: 5px 0px;
+        }
+
+            /* Style the topnav header links */
+            .topnav a {
+                float: left;
+                color: black;
+                text-align: center;
+                padding: 12px 16px;
+                text-decoration: none;
+                font-size: 18px;
+                line-height: 25px;
+                border-radius: 4px;
+            }
+
+                /* Style the logo link (notice that we set the same value of line-height and font-size to prevent the header to increase when the font gets bigger */
+                .topnav a.logo {
+                    font-size: 25px;
+                    font-weight: bold;
+                }
+
+                /* Change the background color on mouse-over */
+                .topnav a:hover {
+                    background-color: #333;
+                    color: #ccc;
+                }
+
+                /* Style the active/current link*/
+                .topnav a.active {
+                    background-color: dodgerblue;
+                    color: white;
+                }
+
+            /* Float the link section to the right */
+            .topnav-right {
+                float: right;
+            }
+
+            /* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
+            @media screen and (max-width: 500px) {
+                .topnav a {
+                    float: none;
+                    display: block;
+                    text-align: left;
+                }
+
+                .topnav-right {
+                    float: none;
+                }
+            }
+
+            .topnav .search-container {
+                float: right;
+            }
+
+            .topnav input[type=text] {
+                padding: 6px;
+                margin: 8px;
+                font-size: 17px;
+                border: none;
+            }
+
+            .topnav  .search-container button {
+                float: right;
+                padding: 6px 10px;
+                margin: 8px 6px 0px 0px ;
+                background: #ddd;
+                font-size: 17px;
+                border: none;
+                cursor: pointer;
+            }
+
+            .topnav .search-container button:hover {
+                background: #ccc;
+            }
+
+            @media screen and (max-width: 600px) {
+                .topnav .search-container {
+                    float: none;
+                }
+
+                header a, .topnav input[type=text], .topnav .search-container button {
+                    float: none;
+                    display: block;
+                    text-align: left;
+                    width: 100%;
+                    margin: 0;
+                    padding: 14px;
+                }
+
+                .topnav input[type=text] {
+                    border: 1px solid #ccc;
+                }
+            }
+
+            /* Area top nav style */
+            .topnav {
+                grid-area: topnav;
+            }
+
+            .topnav {
+                overflow: hidden;
+                background-color: #F0FFFF;
+            }
+
+                .topnav a {
+                    float: left;
+                    color: black;
+                    text-align: center;
+                    padding: 4px 11px;
+                    text-decoration: none;
+                    font-size: 17px;
+                }
+
+                    .topnav a:hover {
+                        background-color: #ddd;
+                        color: black;
+                    }
+
+                    .topnav a.active {
+                        background-color: #228B22;
+                        color: black;
+                    }
+
+
+            /* Area menu style */
+            .menu {
+                margin: 0px 0px 0px 0px;
+                background-color: #fff;
+
+            }
+
+            .main {
+                background-color: #ccc;
+            }
+
+            /* The Overlay (background) */
+            .overlay {
+                /* Height & width depends on how you want to reveal the overlay (see JS below) */
+                height: 100%;
+                width: 0;
+                position: fixed; /* Stay in place */
+                z-index: 1; /* Sit on top */
+                left: 0;
+                top: 0;
+                background-color: rgb(0,0,0); /* Black fallback color */
+                background-color: rgba(0,0,0, 0.9); /* Black w/opacity */
+                overflow-x: hidden; /* Disable horizontal scroll */
+                transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+            }
+
+            /* Position the content inside the overlay */
+            .overlay-content {
+                position: relative;
+                top: 25%; /* 25% from the top */
+                width: 100%; /* 100% width */
+                text-align: center; /* Centered text/links */
+                margin-top: 30px; /* 30px top margin to avoid conflict with the close button on smaller screens */
+            }
+
+            /* The navigation links inside the overlay */
+            .overlay a {
+                padding: 8px;
+                text-decoration: none;
+                font-size: 36px;
+                color: #818181;
+                display: block; /* Display block instead of inline */
+                transition: 0.3s; /* Transition effects on hover (color) */
+            }
+
+                /* When you mouse over the navigation links, change their color */
+                .overlay a:hover, .overlay a:focus {
+                    color: #f1f1f1;
+                }
+
+            /* Position the close button (top right corner) */
+            .overlay .closebtn {
+                position: absolute;
+                top: 20px;
+                right: 45px;
+                font-size: 60px;
+            }
+
+            /* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
+            @media screen and (max-height: 450px) {
+                .overlay a {
+                    font-size: 20px
+                }
+
+                .overlay .closebtn {
+                    font-size: 40px;
+                    top: 15px;
+                    right: 35px;
+                }
+            }
+
+            /* Area main style, this area contain contents of all websites */
+            .right {
+                grid-area: right;
+                background-color: #fff;
+            }
+
+            /* Fake image */
+            .fakeimg {
+                background-color: none;
+                width: 10%;
+                padding: 16px;
+            }
+
+            /* Add a card effect for articles */
+            .card {
+                background-color: none;
+                padding: 3px;
+                margin-top: 3px;
+            }
+
+            /* Area footer style */
+            footer {
+                grid-area: footer;
+                background-color: black;
+                font-size: 15px;
+                color: #ddd;
+            }
+
+            .copyright {
+                font-size: 19px;
+                text-align: center;
+            }
+
+            .foonav {
+                overflow: hidden;
+                bottom: 9px;
+                background-color: #ccc;
+            }
+
+                .foonav a {
+                    float: left;
+                    color: black;
+                    text-align: center;
+                    padding: 4px 11px;
+                    text-decoration: none;
+                    font-size: 17px;
+                }
+
+                    .foonav a:hover {
+                        background-color: #ddd;
+                        color: black;
+                    }
+
+                    .foonav a.active {
+                        background-color: #228B22;
+                        color: black;
+                    }
+
+            /* Style dropup: move the mouse over the button to open the dropup menu. */
+            /* Dropup Button */
+            .dropbtn {
+                background-color: #3498DB;
+                color: white;
+                padding: 16px;
+                font-size: 16px;
+                border: none;
+            }
+
+            /* The container <div> - needed to position the dropup content */
+            .dropup {
+                position: relative;
+                display: inline-block;
+                
+            }
+
+            /* Dropup content (Hidden by Default) */
+            .dropup-content {
+                display: none;
+                position: absolute;
+                bottom: 0;
+                background-color: #f1f1f1;
+                min-width: 100px;
+                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                z-index: 1;
+            }
+
+            /* Links inside the dropup */
+            .dropup-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+            /* Change color of dropup links on hover */
+            .dropup-content a:hover {background-color: #ddd}
+
+            /* Show the dropup menu on hover */
+            .dropup:hover .dropup-content {
+                display: block;
+            }
+
+            /* Change the background color of the dropup button when the dropup content is shown */
+            .dropup:hover .dropbtn {
+                background-color: #2980B9;
+            }
+
+            .flatform {
+                background-color: rgb(255, 165, 0);
+                height: 9px;
+                width: 100%;
+                position: fixed;
+                bottom: 0;
+            }
+
+            .grid-container {
+                display: grid;
+                grid-template-areas:
+                    'header header header header header header'
+                    'topnav topnav topnav topnav topnav topnav'
+                    'menu main main main main right'
+                    'footer footer footer footer footer footer';
+                gap: 0;
+                background-color: #000;
+                padding: 0px;
+            }
+
+                .grid-container > div {
+                    background-color: none;
+                    text-align: center;
+                    padding: 0;
+                    font-size: 19px;
+                }
+
+            .icon-bar {
+                position: fixed;
+                top: 60%;
+                -webkit-transform: translateY(-50%);
+                -ms-transform: translateY(-50%);
+                transform: translateY(-50%);
+            }
+
+                .icon-bar a {
+                    display: block;
+                    text-align: center;
+                    padding: 16px;
+                    transition: all 0.3s ease;
+                    color: white;
+                    font-size: 20px;
+                }
+
+                    .icon-bar a:hover {
+                        background-color: #000;
+                    }
+
+            .facebook {
+                background: #3B5998;
+                color: white;
+            }
+
+            .twitter {
+                background: #55ACEE;
+                color: white;
+            }
+
+            .google {
+                background: #dd4b39;
+                color: white;
+            }
+
+            .linkedin {
+                background: #007bb5;
+                color: white;
+            }
+
+            .youtube {
+                background: #bb0000;
+                color: white;
+            }
+
+            .content {
+                margin-left: 75px;
+                font-size: 30px;
+            }
+
+        .calendar {
+            float: right;
+            font-size: 19px;
+            border: none;
+            bottom: auto;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="grid-container" id="746F6E79-6475-6F6E-6767-6C6F62616C73">
+        <header>
+            <div class="topnav">
+                <a href="#default" class="logo">Sachtony</a>
+                <div class="topnav-right">
+                    <a class="active" href="#home">Home</a>
+                    <a href="#contact">Contact</a>
+                    <a href="#about">About</a>
+                    <div class="search-container"  id="search">
+                        <form action="/action_search.php">
+                            <input type="text" placeholder="Search.." name="search">
+                            <button type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+
+        <div class="topnav">
+            <a class="active" href="#foryou">For You</a>
+            <a href="#news">News</a>
+            <a href="#product">Products</a>
+            <a href="#education">Educations</a>
+            
+        </div>
+
+        <div class="menu">
+            <div class="icon-bar">
+                <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+                <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+                <a href="#" class="google"><i class="fa fa-google"></i></a>
+                <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+                <a href="#" class="youtube"><i class="fa fa-youtube"></i></a>
+            </div>
+            
+            <!-- The overlay -->
+            <div id="menuNav" class="overlay">
+                <!-- Button to close the overlay navigation -->
+                <a href="javascript:void(0);" class="icon" onclick="closeNav()">&times;
+                    <i class="fa fa-bars"></i>
+                </a>
+
+                <!-- Overlay content -->
+                <div class="overlay-content">
+                    <a href="#abount">About</a>
+                    <a href="#service">Services</a>
+                    <a href="#client">Clients</a>
+                    <a href="#contact">Contact</a>
+                     <a href="#pay">Payment</a>
+                </div>
+
+            </div>
+
+            <!-- Use any element to open/show the overlay navigation menu -->
+            <span onclick="openNav()"><i class="fa fa-bars"></i></span>
+            <script>
+                function openNav() {
+                    document.getElementById("menuNav").style.width = "31%";
+                }
+
+                function closeNav() {
+                    document.getElementById("menuNav").style.width = "0%";
+                }
+            </script>
+
+            
+        </div>
+        <div class="main">
+            <div class="content">
+                <div id="#home">
+
+                </div>
+                <div id="#contact">
+
+                </div>
+                <div id="#search">
+
+                </div>
+
+                <div id="#about">
+                    <div id="0314116936">
+
+                    </div>
+
+                    <div id="556932477">
+
+                    </div>
+
+                </div>
+                <div id="#irs">
+                    <div id="#P02235904">
+
+                    </div>
+                </div>
+
+
+                <div id="#vb">
+
+                </div>
+                <div id="#csp">
+                    <div id="#azure">
+
+                    </div>
+                    <div id="#googlecloud">
+                        <links scr="https://console.cloud.google.com/#"></links>
+                    </div>
+                    <div id="f160bb4a1a2943cc882898a2b80463bd">
+
+                    </div>
+                </div>
+                <div id="product">
+                    <div id="office"></div>
+                    <div id="windows"></div>
+                    <div id="device"></div>
+
+                </div>
+
+                <div id="#dynamics">
+                    <div id="ed62fc47-1912-4905-bd20-9763cd4a5363">
+
+                    </div>
+
+                </div>
+                <div id="browser">
+                    <form action="/action_page.php">
+                        <input list="browsers" name="browser">
+                        <datalist id="browsers">
+                          <option value="Internet Explorer">
+                          <option value="Firefox">
+                          <option value="Chrome">
+                          <option value="Opera">
+                          <option value="Safari">
+                        </datalist>
+                        <input type="submit">
+                    </form>
+                </div>
+
+                <div id="#js">
+
+                </div>
+                <div id="#private">
+
+                </div>
+                <div id="#pay">
+
+                </div>
+                <div id="#policy">
+
+                </div>
+                <div id="#term">
+
+                </div>
+                <div id="#blog">
+
+                </div>
+                <div id="#news">
+
+                </div>
+                <div id="#portal">
+
+                </div>
+                <div id="#iso">
+                    <links scr="https://www.iso.org/obp/ui#"></links>
+                </div>
+
+                <div id="#service">
+                    <div id="vb">
+
+                    </div>
+                    <div id="js">
+
+                    </div>
+                    <div id="impact">
+                        <div id="1401147">
+
+                        </div>
+                        <div id="2030402">
+
+                        </div>
+                    </div>
+                    <div id="csp">
+                        <div id="microsoft">
+                            <div id="azure">
+                                <div id="f0fae2c0-c182-45fa-87b9-4d2bab321dc5">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div id="mongodb">
+                            <div id="6125ae5ae70fbb7cf8b4697d">
+
+                            </div>
+
+                        </div>
+                        <div id="cloudflare">
+                            <div id="818356f2dccbaaeaba2b09d356fc9441">
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div id="learn">
+                        <div id="#w3s">
+                            
+                        </div>
+                    </div>
+                    <div id="partner">
+                        <div id="aws">
+                            <div id="2081479">
+
+                            </div>
+                        </div>
+                        <div id="redhat">
+                            <div id="6983024">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div id="trade">
+                        <div id="3868871">
+                            <h3>Create account</h3>
+                            <p><a href="https://fbs.partners?ibl=77095&ibp=4649609">Demo Standart</a><br /> </p>
+                            <p> Standard account
+                                For experienced market players making their way to Forex heights                                
+                                    Initial deposit
+                                    $100
+                                    Spread
+                                    From 0.5 pip
+                                    Minimum lot volume
+                                    0.01 - 500 lots
+                                    Leverage
+                                    Up to 1:3000
+                                <a href="https://fbs.partners?ibl=77100&ibp=4649609">Standart</a><br />
+                            </p>
+                            <p>  Cent account
+                                Perfectly suits those who are just starting on their way to success on Forex
+                                
+                                    Initial deposit
+                                    $1
+                                    Spread
+                                    From 1 pip
+                                    Minimum lot volume
+                                    0.01 - 1000 cent lots
+                                    Leverage
+                                    Up to 1:1000
+                                <a href="https://fbs.partners?ibl=77098&ibp=4649609">Cent</a><br />   
+                            </p>
+                            <p>  Micro account
+                                Ideal for those who want to calculate their profit precisely                               
+                                    Initial deposit
+                                    $5
+                                    Spread
+                                    Fixed, from 3 pips
+                                    Minimum lot volume
+                                    0.01 - 500 lots
+                                    Leverage
+                                    Up to 1:3000
+                                <a href="https://fbs.partners?ibl=77099&ibp=4649609">Micro</a><br />
+                            </p>
+                            <p>  Zero spread account
+                                Designed for those who prefer trading at the fastest speed                                
+                                    Initial deposit
+                                    $500
+                                    Spread
+                                    Fixed, 0 pip
+                                    Minimum lot volume
+                                    0.01 - 500 lots
+                                    Leverage
+                                    Up to 1:3000
+                                <a href="https://fbs.partners?ibl=77097&ibp=4649609">Zero</a><br /> 
+                            </p>
+                            <p>  ECN account
+                                For those who want to feel the full power of trading with ECN technologies                                
+                                    Initial deposit
+                                    $1000
+                                    Spread
+                                    From   -1 pip
+                                    Minimum lot volume
+                                    0.1 - 500 lots
+                                    Leverage
+                                    Up to 1:500
+                                <a href="https://fbs.partners?ibl=77096&ibp=4649609">ECN</a><br />  
+                            </p>
+                            <p>  Crypto account
+                                Supreme option for trading cryptocurrencies with low spreads                                
+                                    Initial deposit
+                                    $1
+                                    Spread
+                                    From 1 pip
+                                    Minimum lot volume
+                                    0,01 - 500 lots
+                                    Leverage
+                                    Up to 1:5
+                                    <a href="https://fbs.partners?ibl=77101&ibp=4649609">Crypto</a><br />
+                            </p>
+                            
+                        </div>
+
+                        <div id="5011310"></div>
+                        <div id="50548199"></div>
+                        <div id="36295908"></div>
+                        <div id="3818822"></div>
+                        <div id="10148574"></div>
+                        <div id="300161568"></div>
+                        <div id="3806586907"></div>
+                        <div id="82691832"></div>
+                    </div>
+
+                </div>
+
+                <div id="#foryou">
+
+                    <div id="google">
+                        <div id="234053138">
+                            <links scr="https://merchants.google.com/mc/overview?a=234053138&authuser=1"></links>
+
+                        </div>
+                        <div id="236611506">
+                            <links scr="https://merchants.google.com/mc/overview?a=236611506&authuser=2"></links>
+
+                        </div>
+                        <div id="648-898-3033">
+
+                        </div>
+                        <div id="265-892-3405">
+
+                        </div>
+
+                        <div id="youtube">
+                            <div id="UCGmgJAhGCsxVlK2xAc7WHCw">
+                                <div id="googleio">
+                                    <h6>Google cloud tech</h6>
+                                    <iframe width="853" height="480" src="https://www.youtube.com/embed/K4Benk0SPE8" title="Google cloud" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    <a href="https://www.youtube.com/channel/UCGmgJAhGCsxVlK2xAc7WHCw" target="iframe_a"></a>
+                                    <h6>Google developer</h6>
+                                    <iframe width="853" height="480" src="https://www.youtube.com/embed/qBkyU1TJKDg" title="Google cloud" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    <a href="https://www.youtube.com/channel/UCGmgJAhGCsxVlK2xAc7WHCw" target="iframe_a"></a>
+
+                                </div>
+                                <div id="apple">
+                                    <h6>Privacy on iPhone</h6>
+                                    <iframe width="853" height="480" src="https://www.youtube.com/embed/NOXK4EVFmJY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+
+
+                            </div>
+
+                            <div id="UCHZzJqvk15dx8H-3Ih-MAsQ">
+
+
+                            </div>
+                            <div id="UCZtGNLMzzZuiW1bMrAj6VfA"></div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div id="#store">
+
+                    <div id="play">
+                        <links scr="https://play.google.com/"></links>
+                        <links scr="https://netflix.com/"></links>
+                        <div id="games">
+                            <links scr="https://dashboard.unity3d.com/organizations/18966750997116/"></links>
+                            <div id="18966750997116">
+                                <div id="abbd2b1b-1407-45f4-ae9e-88f7fea37c68"></div>
+                                <div id="312698d3-c39f-4efe-82b4-a971ffb8f6b8"></div>
+
+                            </div>
+
+                        </div>
+                        <div id="123296623945">
+                            <h4>K+</h4>
+                        </div>
+
+                    </div>
+                    <div id="travel">
+                        <div id="971359567">
+                            <title>Aeroplan</title>
+                        </div>
+                        <div id="9900431217">
+                            <title>Vietnam Airway</title>
+                        </div>
+                        <div id="800507970">
+                            <title>Bamboo Airway</title>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div id="social">                         
+                    <h6>Video</h6>
+                    <div style="text-align:center">
+                        <video controls autoplay muted loop cc id="video1" width="420">
+                            <source src="mov_bbb.mp4" type="video/mp4">
+                            <source src="mov_bbb.ogg" type="video/ogg">
+                            <source src="rabbit320.webm" type="video/webm">
+                            <embed src="video.html" type="video">
+                            Your browser does not support HTML video.
+
+                        </video>
+                        <div class="content">
+                            <h1></h1>
+                            <p></p>
+                            <button onclick="playCC()"><i class="fa fa-cc"></i></button>
+                            <button onclick="playPause()"><i class="fa fa-play"></i><i class="fa fa-pause"></i></button>
+                            <button onclick="makeBig()"><i class='fa fa-expand'></i></button>
+                            <button onclick="makeSmall()"><i class='fa fa-compress'></i></button>
+                            <button onclick="makeNormal()"><i class='fa fa-arrows-alt'></i></button>
+                            <button onclick="makeBack()"><i class='fa fa-step-backward'></i></button>
+                            <button onclick="makeNext()"><i class='fa fa-step-forward'></i></button>
+                            
+                        </div>
+                        <script>
+                            var myVideo = document.getElementById("video1");
+                            function playPause() {
+                                if (myVideo.paused)
+                                    myVideo.play();
+                                else
+                                myVideo.pause();
+                            }    
+                            function makeBig() {
+                                myVideo.width = 560;
+                            }    
+                            function makeSmall() {
+                                myVideo.width = 320;
+                            }    
+                            function makeNormal() {
+                                myVideo.width = 420;
+                            }
+                            function makeBack() {
+                                myVideo.video = back;
+                            }
+                            function makeNext() {
+                                myVideo.video = next;
+                            }
+                        </script>
+                        
+                    </div>
+
+                    <div>
+                        <h6>Audio</h6>
+                        <audio controls autoplay muted>
+                            <source src="horse.ogg" type="audio/ogg">
+                            <source src="horse.mp3" type="audio/mpeg">
+                            <embed src="audio.html" type="audio">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <div class="right">
+            <div class="card" id="person">
+                <h5>About Me:</h5>
+                <div class="fakeimg" style="height:50px">
+
+                </div>
+                
+            </div>
+            <div class="card" id="_top">
+                <h5>Popular Post:</h5>
+                <div class="fakeimg">
+
+                </div>
+                <div class="fakeimg">
+
+                </div>
+                <div class="fakeimg">
+
+                </div>
+            </div>
+            <div class="card" id="follow_me">
+                <h5>Follow Me:</h5>
+         
+            </div>
+
+        </div>
+
+        <footer>
+            <div>
+                <div class="dropup">
+                    <button id="dropupbtn">Services</button>
+                    <div class="dropup-content">
+                        <div id="service">
+                            <a href="#vb">Docs</a>
+                            <a href="#js">Sercurity</a>
+                            <a href="#csp">Cloud</a>
+                            <a href="#learn">Learn</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="dropup">
+                    <button class="dropupbtn">Partners</button>
+                    <div class="dropup-content">
+                        <div id="partner">
+                            <a href="#apple">
+                                <i class="fa fa-apple" style="font-size:48px;color:black"></i></a>
+                            <a href="#google"><i class='fa fa-google' style='font-size:48px;color:orange'></i></a>
+                            <a href="#microsoft"><i class="fa fa-windows" style="font-size:48px;color:limegreen"></i></a>
+                            <a href="#paypal"><i style="font-size:36px;color:darkblue" class="fa">&#xf1ed;</i></a>
+                            <a href="#aws"><i class="fa fa-amazon" style="font-size:48px;color:red"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dropup">
+                    <button class="dropupbtn">Languages</button>
+                    <div class="dropup-content">
+                        <div id="language">
+                            <a href="#vi_VN">Vietnamese</a>
+                            <a href="#en_US">English</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="foonav">
+                <a href="#private">Private</a>
+                <a href="#policy">Policy</a>
+                <a href="#blog">Blogs</a>
+                <a href="#terms">Terms</a>
+                <a href="#support">Support</a>
+                <a href="#iso">Iso (OBP)</a>
+
+            </div>
+
+            <div class="copyright">
+                © 2022 Sachtony.
+            </div>
+            <div class="calendar" ng-app="dateTime" ng-controller="myCtrl">    
+                <h5>{{Time}}</h5>
+                <h5>{{Date}}</h5>
+                  
+            </div>
+            
+            <div class="flatform"></div>
+            <script>
+                var app = angular.module('dateTime', []);
+                app.controller('myCtrl', function($scope, $interval) {
+                  $scope.Time = new Date().toLocaleTimeString();
+                  $interval(function () {
+                      $scope.Time = new Date().toLocaleTimeString();
+                  }, 1000);
+                });
+            </script>
+            <script>
+                var app = angular.module('dateTime', []);
+                app.controller('myCtrl', function($scope, $interval) {
+                  $scope.Date = new Date().toLocaleDateString();
+                  $interval(function () {
+                      $scope.Date = new Date().toLocaleDateString();
+                  }, );
+                });
+            </script>
+
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,7 @@
+{
+    "enabled": true,
+    "custom_domain": "sachtony.com",
+    "app_default_domain": "data-vtgga.mongodbstitch.com",
+    "default_error_path": "/index.html",
+    "default_error_code": "200"
+}

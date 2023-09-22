@@ -27,11 +27,12 @@
         .grid-container {
             display: grid;
             grid-template-areas: 'header header header header header header'
+                                'menu menu menu menu menun menu'
                                  'main main main main main main'
                                  'footer footer footer footer footer footer';
-            gap: 0px;
+            gap: auto;
             background-color: none;
-            padding: 0px;
+            padding: auto;
         }
 
             .grid-container > div {
@@ -66,9 +67,9 @@
             display: grid;
             justify-content: center;
             grid-template-columns: 100%;
-            gap: 0px;
+            gap: auto;
             background-color: none;
-            padding: 0px;
+            padding: auto;
         }
 
             .grid-container > div {
